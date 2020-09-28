@@ -33,7 +33,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         if (accelerormeterSensor != null)
             sensorManager?.registerListener(this, accelerormeterSensor, SensorManager.SENSOR_DELAY_GAME)
     }
-
+    // 깃 테스트용 수정
     override fun onStop() {
         super.onStop()
         if (sensorManager != null)
