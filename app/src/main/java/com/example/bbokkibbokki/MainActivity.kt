@@ -33,7 +33,6 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         if (accelerormeterSensor != null)
             sensorManager?.registerListener(this, accelerormeterSensor, SensorManager.SENSOR_DELAY_GAME)
     }
-    // 깃 테스트용 수정
     override fun onStop() {
         super.onStop()
         if (sensorManager != null)
@@ -57,6 +56,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000
                 if (speed > SHAKE_THRESHOLD)
                 {
+                    // 흔들때 이벤트 처리는 여기서 하면 되요 나영씨^^
                     cnt++
                     action.text = "$cnt"
                 }
@@ -72,5 +72,8 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_main)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+
+
     }
 }
