@@ -7,12 +7,14 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import java.util.Random
 import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity:AppCompatActivity(), SensorEventListener {
 
     private var cnt:Int = 0
+    private var random = Random()
     private var lastTime:Long = 0
     private var speed:Float = 0.toFloat()
     private var lastX:Float = 0.toFloat()
@@ -27,6 +29,23 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     private var DATA_Z = SensorManager.DATA_Z
     private var sensorManager:SensorManager? = null
     private var accelerormeterSensor:Sensor? = null
+    private var G_PunishmentList = ArrayList<GeneralPunishment>()
+
+
+    init{
+        // 일반벌칙 정의
+        G_PunishmentList.add(GeneralPunishment(1,2,"벌칙1"))
+        G_PunishmentList.add(GeneralPunishment(2,2,"벌칙2"))
+        G_PunishmentList.add(GeneralPunishment(3,2,"벌칙3"))
+        G_PunishmentList.add(GeneralPunishment(4,2,"벌칙4"))
+        G_PunishmentList.add(GeneralPunishment(5,2,"벌칙5"))
+    }
+
+    //리스트 길이 만큼 랜덤한 숫자 출력
+    fun rand(from: Int, to: Int) : Int {
+        return random.nextInt(to - from) + from
+    }
+
 
     override fun onStart() {
         super.onStart()
@@ -57,8 +76,15 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 if (speed > SHAKE_THRESHOLD)
                 {
                     // 흔들때 이벤트 처리는 여기서 하면 되요 나영씨^^
-                    cnt++
-                    action.text = "$cnt"
+
+
+                    // 랜덤 변수 생성
+                    var randomNum = rand(0,G_PunishmentList.size)
+                    if(G_PunishmentList.get(randomNum).quantity == 0){
+                        //추후 벌칙 뽑은후 횟수 조정
+                    }
+                    action.text = "${G_PunishmentList.get(randomNum).punishmentContent}"
+
                 }
                 lastX = event.values[DATA_X]
                 lastY = event.values[DATA_Y]

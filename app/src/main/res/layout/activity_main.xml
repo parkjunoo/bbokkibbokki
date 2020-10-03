@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-    
+
     <TextView
         android:id="@+id/action"
         android:layout_width="wrap_content"
@@ -15,8 +15,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         />
-
-
     <ImageButton
         android:id="@+id/stick1"
         android:layout_width="wrap_content"
@@ -39,8 +37,4 @@
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/box"
         />
-
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
