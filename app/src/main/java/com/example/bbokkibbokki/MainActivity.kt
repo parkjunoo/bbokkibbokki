@@ -16,6 +16,7 @@ import android.provider.MediaStore
 import android.util.Log
 import java.util.Random
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
@@ -27,10 +28,10 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
     //애니메이션 변수
     private lateinit var box:ImageView
-
     private var sticks = ArrayList<ImageView>()
     private var total = ArrayList<ImageView>()
-
+    //뷰페이저 변수
+    private val adapter by lazy { MainAdapter(supportFragmentManager) }
     //shake 변수
     private var cnt:Int = 0
     private var random = Random()
@@ -59,6 +60,12 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         G_PunishmentList.add(GeneralPunishment(4,2,"벌칙4"))
         G_PunishmentList.add(GeneralPunishment(5,2,"벌칙5"))
 
+        sticks.add(stick1)
+        sticks.add(stick2)
+        sticks.add(stick3)
+        sticks.add(stick4)
+        sticks.add(stick5)
+
 
     }
 
@@ -66,7 +73,6 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     fun rand(from: Int, to: Int) : Int {
         return random.nextInt(to - from) + from
     }
-
 
 
 
@@ -138,12 +144,19 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         box.animation = shake
     }
 
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+        //뷰페이저 어댑터 연결
+        vpMainActivity.adapter = MainActivity@adapter
+
+        //탭 레이아웃에 뷰페이저 연결
+        tabLayout.setupWithViewPager(vpMainActivity)
 
         //스틱 OnTouch
         stick1.setOnTouchListener { v, e ->
@@ -181,3 +194,4 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     }
 
 }
+
