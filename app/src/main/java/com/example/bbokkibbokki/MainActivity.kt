@@ -7,6 +7,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import java.util.Random
 import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
