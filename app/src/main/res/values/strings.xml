@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Bbokkibbokki</string>
-    <string name="adult_start">커플모드</string>
+    <string name="adult_start">커플 모드</string>
+    <string name="original_start">오리지널 모드</string>
 </resources>

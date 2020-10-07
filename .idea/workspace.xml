@@ -15,6 +15,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="R5CN603WASV" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -30,8 +31,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="layoutResourceFile" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -153,10 +154,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="-31" y="187" key="#PSD/0.0.1536.824@0.0.1536.824" timestamp="1601894127246" />
-    <state x="689" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602028967970">
+    <state x="689" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1602029142942">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="689" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1602028967970" />
+    <state x="689" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1602029142942" />
     <state x="833" y="73" key="#com.intellij.unscramble.UnscrambleDialog" timestamp="1601904572523">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

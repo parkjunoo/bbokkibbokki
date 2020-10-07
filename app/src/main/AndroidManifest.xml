@@ -3,6 +3,7 @@
     package="com.example.bbokkibbokki">
 
     <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="com.android.vending.BILLING"/>
 
     <application
         android:allowBackup="true"
@@ -18,6 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name="com.example.bbokkibbokki.MainActivity" />
+        <activity android:name="com.example.bbokkibbokki.AdultActivity" />
+
     </application>
 
 </manifest>
