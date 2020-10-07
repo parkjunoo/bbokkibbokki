@@ -3,6 +3,7 @@ package com.example.bbokkibbokki
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -15,13 +16,21 @@ import android.widget.ImageView
 import android.os.Vibrator
 import android.provider.MediaStore
 import android.util.Log
+import android.view.LayoutInflater
 
 import java.util.Random
 import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
+import androidx.core.view.LayoutInflaterFactory
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 
 class MainActivity:AppCompatActivity(), SensorEventListener {
@@ -29,6 +38,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     //애니메이션 변수
     private lateinit var box:ImageView
     private var sticks = ArrayList<ImageView>()
+
     //shake 변수
     private var cnt:Int = 0
     private var random = Random()
@@ -57,13 +67,13 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         G_PunishmentList.add(GeneralPunishment(4,2,"벌칙4"))
         G_PunishmentList.add(GeneralPunishment(5,2,"벌칙5"))
 
+
     }
 
     //리스트 길이 만큼 랜덤한 숫자 출력
     fun rand(from: Int, to: Int) : Int {
         return random.nextInt(to - from) + from
     }
-
 
 
 
@@ -139,6 +149,30 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         }
     }
 
+    //결제 물어보기
+//    private fun checkPayment(){
+//        val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//        val view = inflater.inflate(R.layout.check_payment, null)
+//        val textView: TextView = view.findViewById(R.id.payment)
+//        textView.text = "테스트 테스트 결제하시겠습니까?"
+//
+//
+//        val alertDialog = AlertDialog.Builder(this)
+//            .setTitle("결제창")
+//            .setPositiveButton("결제"){dialog, which ->
+//                //test
+//                Toast.makeText(applicationContext, "test 결제완료",Toast.LENGTH_SHORT
+//                )
+//                //결제화면으로 넘어가야함
+//
+//                //adult로 넘어가는 화면 구현 intent 합치기
+//
+//            }
+//            .setNeutralButton("취소", null)
+//            .create()
+//    }
+
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -146,13 +180,26 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
+
+//        //결제 여쭈어보기 alertDialog
+//        adult_start.setOnClickListener{
+//            checkPayment()
+//    }
+        //성인버튼눌렀을때 화면전환
+        val go_adult = findViewById(R.id.adult_start) as Button
+            go_adult.setOnClickListener{
+                val intent = Intent(this@MainActivity, AdultActivity::class.java)
+                startActivity(intent)
+            }
+
+
         sticks.add(stick1)
         sticks.add(stick2)
         sticks.add(stick3)
         sticks.add(stick4)
         sticks.add(stick5)
-        //스틱 OnTouch
 
+        //스틱 OnTouch
         for(i in sticks) {
             i.setOnTouchListener { v, e ->
                 sticks.remove(i)
@@ -160,11 +207,11 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 val pWidth = (v.parent as ViewGroup).width
                 val pHeight = (v.parent as ViewGroup).height
 
-                //움직일때
-                //v.x   v.y    가상의 수직교점 절대좌표
-                //e.x   e.y    터치한 지점에 해당하는 절대좌표
+                //x움직일때
+//                //v.x   v.y    가상의 수직교점 절대좌표
+//                //e.x   e.y    터치한 지점에 해당하는 절대좌표
                 if (e.action == MotionEvent.ACTION_MOVE) {
-//                    v.x = v.x + e.x - v.width / 2
+//                    v.x = v.x + e. - v.width / 2
                     v.y = v.y + e.y - v.height / 2
 
                     //뗐을 때
@@ -180,6 +227,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //                    } else if (v.x + v.width > pWidth) {
 //                        v.x = (pWidth - v.width).toFloat()
 //                    }
+
                     if (v.y < 0) {
                         v.y = 0F
                         i.animate().alpha(0f).setDuration(2000).withEndAction {
@@ -198,3 +246,4 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
 
 }
+
