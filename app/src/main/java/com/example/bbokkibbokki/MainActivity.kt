@@ -173,7 +173,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            .create()
 //    }
 
- 
+
 
 
     @SuppressLint("ClickableViewAccessibility")
@@ -232,22 +232,36 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //                    } else if (v.x + v.width > pWidth) {
 //                        v.x = (pWidth - v.width).toFloat()
 //                    }
-                    //점점 사라지게
+
                     if (v.y < 0) {
                         v.y = 0F
-                        val mAlertDialog = AlertDialog.Builder(this@MainActivity)
-                        mAlertDialog.setIcon(R.drawable.soju)
-                        mAlertDialog.setTitle("오나영이 쏜다!!!!")
-                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
-                        mAlertDialog.setPositiveButton("닫기"){dialog, id ->
-
-                        }
-                        mAlertDialog.show()
-
+                        //점점 사라지게
                         i.animate().alpha(0f).setDuration(2000).withEndAction {
                             i.alpha = 1f
                         }.start()
                         i.setImageResource(0);
+
+                        //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
+                        G_PunishmentList.get(randomNum).quantity--
+                        if(G_PunishmentList.get(randomNum).quantity == 0){
+                            G_PunishmentList.removeAt(randomNum)
+                            //추후 벌칙 뽑은후 횟수 조정
+                        }
+                        randomNum = rand(0,G_PunishmentList.size)
+
+                        //벌칙창
+                        val mAlertDialog = AlertDialog.Builder(this@MainActivity)
+                        mAlertDialog.setIcon(R.drawable.soju)
+                        mAlertDialog.setTitle("*^ㅅ^*")
+                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
+                        mAlertDialog.setPositiveButton("닫기"){dialog, id ->
+                            //stick 제자리
+                            v.y = 560F
+                        }
+                        mAlertDialog.show()
+
+
+
                     } else if (v.y + v.height > pHeight) {
                         v.y = (pHeight - v.height).toFloat()
                     }
