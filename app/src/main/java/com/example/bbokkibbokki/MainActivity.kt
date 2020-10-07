@@ -36,6 +36,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     //애니메이션 변수
     private lateinit var box:ImageView
     private var sticks = ArrayList<ImageView>()
+    private var randomNum:Int = 0
 
     //shake 변수
     private var cnt:Int = 0
@@ -122,7 +123,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                     vibrator.vibrate(200)
 
                     // 랜덤 변수 생성
-                    var randomNum = rand(0,G_PunishmentList.size)
+                    randomNum = rand(0,G_PunishmentList.size)
                     if(G_PunishmentList.get(randomNum).quantity == 0){
 
                         //추후 벌칙 뽑은후 횟수 조정
@@ -171,6 +172,8 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            .create()
 //    }
 
+ 
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -209,6 +212,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 val y = i.y.toFloat()
 
 
+
                 //x움직일때
 //                //v.x   v.y    가상의 수직교점 절대좌표
 //                //e.x   e.y    터치한 지점에 해당하는 절대좌표
@@ -223,23 +227,36 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         "bsjbsj",
                         "v.x : ${v.x} + v.y : ${v.y} , v.x + v.width : ${v.x + v.width}, v.y + y.width : ${v.y + v.width}"
                     )
-
                     //v.x : 121.23216 + v.y : 92.1308 , v.x + v.width : 321.23218, v.y + y.width : 292.1308
+                    // 뽑았을때  v.x : 121.23216 + v.y : 92.1308 , v.x + v.width : 321.23218, v.y + y.width : 292.1308
+                    // 아래로 v.x : 663.0 + v.y : 572.792 , v.x + v.width : 903.0, v.y + y.width : 812.792       --->    570.0<v.y
+
 //                    if (v.x < 0) {
 //                        v.x = 0F
 //                    } else if (v.x + v.width > pWidth) {
 //                        v.x = (pWidth - v.width).toFloat()
 //                    }
-
+                    //점점 사라지게
                     if (v.y < 0) {
                         v.y = 0F
+                        val mAlertDialog = AlertDialog.Builder(this@MainActivity)
+                        mAlertDialog.setIcon(R.drawable.soju)
+                        mAlertDialog.setTitle("오나영이 쏜다!!!!")
+                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
+                        mAlertDialog.setPositiveButton("닫기"){dialog, id ->
+
+                        }
+                        mAlertDialog.show()
+
                         i.animate().alpha(0f).setDuration(2000).withEndAction {
                             i.alpha = 1f
                         }.start()
                         i.setImageResource(0);
-                    } //else if (v.y + v.height > pHeight) {
-                        //v.y = (pHeight - v.height).toFloat()
-                    //}
+
+                    } else if (v.y + v.height > pHeight) {
+                        v.y = (pHeight - v.height).toFloat()
+                    }
+
                 }
                 true
             }
