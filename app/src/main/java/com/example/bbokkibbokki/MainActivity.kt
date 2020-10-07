@@ -22,6 +22,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.content.getSystemService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_main.*
 
 
 class MainActivity:AppCompatActivity(), SensorEventListener {
@@ -151,12 +152,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         setContentView(R.layout.activity_main)
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
         accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
-        //뷰페이저 어댑터 연결
-        vpMainActivity.adapter = MainActivity@adapter
-
-        //탭 레이아웃에 뷰페이저 연결
-        tabLayout.setupWithViewPager(vpMainActivity)
+        
 
         //스틱 OnTouch
         stick1.setOnTouchListener { v, e ->

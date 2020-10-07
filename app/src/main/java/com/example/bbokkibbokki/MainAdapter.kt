@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class MainAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
+class MainAdapter(fm: FragmentManager):FragmentStatePagerAdapter(fm)  {
 
     private val fragmentTitleList = mutableListOf("A","B")
 
@@ -16,7 +16,7 @@ class MainAdapter(fm: FragmentManager): FragmentStatePagerAdapter(fm) {
             0 -> AFragment()
             1 -> BFragment()
             else -> {throw IllegalStateException("$position is illegal") }
-        }
+    }
 
     }
     //생성할 Fragment 개수

@@ -4,100 +4,92 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- 'com.google.android.material:material:1.2.1' -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/TabTheme">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <!-- 뷰페이저 -->
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vpMainActivity"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        android:layout_marginLeft="170dp"
-        />
+
+        <Button
+            android:id="@+id/adult_Start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="300dp"
+            android:text="@string/adult_start"
+            />
 
 
-    <ImageButton
-        android:id="@+id/stick1"
-        android:layout_width="80dp"
-        android:layout_height="500dp"
-        android:layout_marginLeft="35dp"
-        android:background="@drawable/stick"
-        android:layout_marginTop="100dp"
+        <TextView
+            android:id="@+id/action"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello World!"
+            android:layout_marginLeft="170dp"
+            />
 
-        />
 
-    <ImageButton
-        android:id="@+id/stick2"
-        android:layout_width="80dp"
-        android:layout_height="500dp"
-        android:layout_marginLeft="62dp"
-        android:background="@drawable/stick"
-        android:layout_marginTop="100dp"
-        android:layout_alignLeft="@id/stick1"
-        />
+        <ImageButton
+            android:id="@+id/stick1"
+            android:layout_width="80dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="35dp"
+            android:background="@drawable/stick"
+            android:layout_marginTop="100dp"
 
-    <ImageButton
-        android:id="@+id/stick3"
-        android:layout_width="80dp"
-        android:layout_height="500dp"
-        android:layout_marginLeft="62dp"
-        android:background="@drawable/stick"
-        android:layout_marginTop="100dp"
-        android:layout_alignLeft="@id/stick2"
-        />
+            />
 
-    <ImageButton
-        android:id="@+id/stick4"
-        android:layout_width="80dp"
-        android:layout_height="500dp"
-        android:layout_marginLeft="62dp"
-        android:background="@drawable/stick"
-        android:layout_marginTop="100dp"
-        android:layout_alignLeft="@id/stick3"
-        />
+        <ImageButton
+            android:id="@+id/stick2"
+            android:layout_width="80dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="62dp"
+            android:background="@drawable/stick"
+            android:layout_marginTop="100dp"
+            android:layout_alignLeft="@id/stick1"
+            />
 
-    <ImageButton
-        android:id="@+id/stick5"
-        android:layout_width="80dp"
-        android:layout_height="500dp"
-        android:layout_marginLeft="62dp"
-        android:background="@drawable/stick"
-        android:layout_marginTop="100dp"
-        android:layout_alignLeft="@id/stick4"
-        />
+        <ImageButton
+            android:id="@+id/stick3"
+            android:layout_width="80dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="62dp"
+            android:background="@drawable/stick"
+            android:layout_marginTop="100dp"
+            android:layout_alignLeft="@id/stick2"
+            />
 
-    <ImageView
-        android:id="@+id/Box"
-        android:layout_width="500dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="300dp"
-        android:background="@drawable/boxcut"
-        />
+        <ImageButton
+            android:id="@+id/stick4"
+            android:layout_width="80dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="62dp"
+            android:background="@drawable/stick"
+            android:layout_marginTop="100dp"
+            android:layout_alignLeft="@id/stick3"
+            />
+
+        <ImageButton
+            android:id="@+id/stick5"
+            android:layout_width="80dp"
+            android:layout_height="500dp"
+            android:layout_marginLeft="62dp"
+            android:background="@drawable/stick"
+            android:layout_marginTop="100dp"
+            android:layout_alignLeft="@id/stick4"
+            />
+
+        <ImageView
+            android:id="@+id/Box"
+            android:layout_width="500dp"
+            android:layout_height="400dp"
+            android:layout_marginTop="300dp"
+            android:background="@drawable/boxcut"
+            />
 
     </RelativeLayout>
+
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
