@@ -159,6 +159,9 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 //부모의 절대좌표
                 val pWidth = (v.parent as ViewGroup).width
                 val pHeight = (v.parent as ViewGroup).height
+                val x = i.x.toFloat()
+                val y = i.y.toFloat()
+
 
                 //움직일때
                 //v.x   v.y    가상의 수직교점 절대좌표
@@ -174,21 +177,17 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         "bsjbsj",
                         "v.x : ${v.x} + v.y : ${v.y} , v.x + v.width : ${v.x + v.width}, v.y + y.width : ${v.y + v.width}"
                     )
-                    //v.x : 121.23216 + v.y : 92.1308 , v.x + v.width : 321.23218, v.y + y.width : 292.1308
-//                    if (v.x < 0) {
-//                        v.x = 0F
-//                    } else if (v.x + v.width > pWidth) {
-//                        v.x = (pWidth - v.width).toFloat()
-//                    }
+                    v.x = x
+                    v.y = y
                     if (v.y < 0) {
                         v.y = 0F
                         i.animate().alpha(0f).setDuration(2000).withEndAction {
                             i.alpha = 1f
                         }.start()
                         i.setImageResource(0);
-                    } else if (v.y + v.height > pHeight) {
-                        v.y = (pHeight - v.height).toFloat()
-                    }
+                    } //else if (v.y + v.height > pHeight) {
+                        //v.y = (pHeight - v.height).toFloat()
+                    //}
                 }
                 true
             }
