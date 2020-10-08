@@ -57,7 +57,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     private var DATA_Z = SensorManager.DATA_Z
     private var sensorManager:SensorManager? = null
     private var accelerormeterSensor:Sensor? = null
-    private var G_PunishmentList = ArrayList<GeneralPunishment>()
+    private var G_PunishmentList = ArrayList<GeneralPunishment?>()
 
 
     init{
@@ -126,11 +126,11 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
                     // 랜덤 변수 생성
                     randomNum = rand(0,G_PunishmentList.size)
-                    if(G_PunishmentList.get(randomNum).quantity == 0){
+                    if(G_PunishmentList.get(randomNum)?.quantity == 0){
 
                         //추후 벌칙 뽑은후 횟수 조정
                     }
-                    action.text = "${G_PunishmentList.get(randomNum).punishmentContent}"
+                    action.text = "${G_PunishmentList.get(randomNum)?.punishmentContent}"
 
                 }
                 lastX = event.values[DATA_X]
@@ -211,7 +211,6 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 val pHeight = (v.parent as ViewGroup).height
 
 
-                //x움직일때
 //                //v.x   v.y    가상의 수직교점 절대좌표
 //                //e.x   e.y    터치한 지점에 해당하는 절대좌표
                 if (e.action == MotionEvent.ACTION_MOVE) {
@@ -225,13 +224,8 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         "bsjbsj",
                         "v.x : ${v.x} + v.y : ${v.y} , v.x + v.width : ${v.x + v.width}, v.y + y.width : ${v.y + v.width}"
                     )
-                    // 뽑았을때  v.x : 121.23216 + v.y : 92.1308 , v.x + v.width : 321.23218, v.y + y.width : 292.1308
-                    // 아래로 v.x : 663.0 + v.y : 572.792 , v.x + v.width : 903.0, v.y + y.width : 812.792       --->    570.0<v.y
-//                    if (v.x < 0) {
-//                        v.x = 0F
-//                    } else if (v.x + v.width > pWidth) {
-//                        v.x = (pWidth - v.width).toFloat()
-//                    }
+                    // 뽑았을때  v.y : 92.1308
+                    // 아래로    v.y : 572.792
 
                     if (v.y < 0) {
                         v.y = 0F
@@ -242,18 +236,19 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         i.setImageResource(0);
 
                         //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
-                        G_PunishmentList.get(randomNum).quantity--
-                        if(G_PunishmentList.get(randomNum).quantity == 0){
+                        G_PunishmentList.get(randomNum)!!.quantity--
+                        if (G_PunishmentList.get(randomNum)!!.quantity == 0) {
                             G_PunishmentList.removeAt(randomNum)
                             //추후 벌칙 뽑은후 횟수 조정
                         }
+
                         randomNum = rand(0,G_PunishmentList.size)
 
                         //벌칙창
                         val mAlertDialog = AlertDialog.Builder(this@MainActivity)
                         mAlertDialog.setIcon(R.drawable.soju)
                         mAlertDialog.setTitle("*^ㅅ^*")
-                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
+                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum)?.punishmentContent)
                         mAlertDialog.setPositiveButton("닫기"){dialog, id ->
                             //stick 제자리
                             v.y = 560F
