@@ -1,4 +1,3 @@
-
 package com.example.bbokkibbokki
 
 import Model.GeneralPunishment
@@ -172,92 +171,103 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            .create()
 //    }
 
-
-        @SuppressLint("ClickableViewAccessibility")
-        override fun onCreate(savedInstanceState: Bundle?) {
-            super.onCreate(savedInstanceState)
-            setContentView(R.layout.activity_main)
-            sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-            accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+        accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
 
 //        //결제 여쭈어보기 alertDialog
 //        adult_start.setOnClickListener{
 //            checkPayment()
 //    }
-            //성인버튼눌렀을때 화면전환
-            val go_adult = findViewById(R.id.adult_start) as Button
-            go_adult.setOnClickListener {
-                val intent = Intent(this@MainActivity, AdultActivity::class.java)
-                startActivity(intent)
-            }
+        //성인버튼눌렀을때 화면전환
+        val go_adult = findViewById(R.id.adult_start) as Button
+        go_adult.setOnClickListener {
+            val intent = Intent(this@MainActivity, AdultActivity::class.java)
+            startActivity(intent)
+        }
+        //스틱 객체 생성 후 추가 (관리의 용의)
+        sticks.add(Stick(stick1))
+        sticks.add(Stick(stick2))
+        sticks.add(Stick(stick3))
+        sticks.add(Stick(stick4))
+        sticks.add(Stick(stick5))
 
-            sticks.add(Stick(stick1))
-            sticks.add(Stick(stick2))
-            sticks.add(Stick(stick3))
-            sticks.add(Stick(stick4))
-            sticks.add(Stick(stick5))
-            sticksTmp.add(stick1)
-            sticksTmp.add(stick2)
-            sticksTmp.add(stick3)
-            sticksTmp.add(stick4)
-            sticksTmp.add(stick5)
+        sticksTmp.add(stick1) // 애니메이션을 위한 임시 stick List
+        sticksTmp.add(stick2)
+        sticksTmp.add(stick3)
+        sticksTmp.add(stick4)
+        sticksTmp.add(stick5)
 
+        //스틱 OnTouch
+        for (i in sticks) {
+            i.ImageView.setOnTouchListener { v, e ->
+                //부모의 절대좌표
+                val pWidth = (v.parent as ViewGroup).width
+                val pHeight = (v.parent as ViewGroup).height
 
-
-
-            //스틱 OnTouch
-            for (i in sticks) {
-                i.ImageView.setOnTouchListener { v, e ->
-                    //부모의 절대좌표
-                    val pWidth = (v.parent as ViewGroup).width
-                    val pHeight = (v.parent as ViewGroup).height
-
-                    //x움직일때
+                //x움직일때
 //                //v.x   v.y    가상의 수직교점 절대좌표
 //                //e.x   e.y    터치한 지점에 해당하는 절대좌표
-                    if (e.action == MotionEvent.ACTION_MOVE) {
-//                    v.x = v.x + e. - v.width / 2
-                        v.y = v.y + e.y - v.height / 2
+                if (e.action == MotionEvent.ACTION_MOVE) {
+//                    v.x = v.x + e.x - v.width / 2
+                    v.y = v.y + e.y - v.height / 2
 
-                        //뗐을 때
-                    } else if (e.action == MotionEvent.ACTION_UP) {
-                        Log.d("bsjbsj", "detached...")
-                        Log.d(
-                            "bsjbsj",
-                            "v.x : ${v.x} + v.y : ${v.y} , v.x + v.width : ${v.x + v.width}, v.y + y.width : ${v.y + v.width}"
-                        )
+                    //뗐을 때
+                } else if (e.action == MotionEvent.ACTION_UP) {
+                    Log.d("bsjbsj", "detached...")
+                    Log.d(
+                        "bsjbsj",
+                        "v.x : ${v.x} + v.y : ${v.y} , v.x + v.width : ${v.x + v.width}, v.y + y.width : ${v.y + v.width}"
+                    )
+                    // 뽑았을때  v.x : 121.23216 + v.y : 92.1308 , v.x + v.width : 321.23218, v.y + y.width : 292.1308
+                    // 아래로 v.x : 663.0 + v.y : 572.792 , v.x + v.width : 903.0, v.y + y.width : 812.792       --->    570.0<v.y
+//                    if (v.x < 0) {
+//                        v.x = 0F
+//                    } else if (v.x + v.width > pWidth) {
+//                        v.x = (pWidth - v.width).toFloat()
+//                    }
 
+                    if (v.y < 0) {
+                        v.y = 0F
                         //점점 사라지게
-                        if (v.y < 0) {
-                            v.y = 0F
-                            val mAlertDialog = AlertDialog.Builder(this@MainActivity)
-                            mAlertDialog.setIcon(R.drawable.soju)
-                            mAlertDialog.setTitle("오나영이 쏜다!!!!")
-                            mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
-                            mAlertDialog.setPositiveButton("닫기") { dialog, id ->
+                        i.ImageView.animate().alpha(0f).setDuration(2000).withEndAction {
+                            i.ImageView.alpha = 1f
+                        }.start()
+                        i.ImageView.setImageResource(0);
 
-                            }
-                            mAlertDialog.show()
-
-                            i.ImageView.animate().alpha(0f).setDuration(2000).withEndAction {
-                                i.ImageView.alpha = 1f
-                            }.start()
-                            i.ImageView.setImageResource(0);
-
-
-                        } else if (v.y + v.height > pHeight) {
-                            v.y = (pHeight - v.height).toFloat()
+                        //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
+                        G_PunishmentList.get(randomNum).quantity--
+                        if(G_PunishmentList.get(randomNum).quantity == 0){
+                            G_PunishmentList.removeAt(randomNum)
+                            //추후 벌칙 뽑은후 횟수 조정
                         }
+                        randomNum = rand(0,G_PunishmentList.size)
 
+                        //벌칙창
+                        val mAlertDialog = AlertDialog.Builder(this@MainActivity)
+                        mAlertDialog.setIcon(R.drawable.soju)
+                        mAlertDialog.setTitle("*^ㅅ^*")
+                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
+                        mAlertDialog.setPositiveButton("닫기"){dialog, id ->
+                            //stick 제자리
+                            v.y = 560F
+                        }
+                        mAlertDialog.show()
+
+
+
+                    } else if (v.y + v.height > pHeight) {
+                        v.y = (pHeight - v.height).toFloat()
                     }
-                    true
+
                 }
+                true
             }
-
         }
+
+    }
 }
-
-
-
-
