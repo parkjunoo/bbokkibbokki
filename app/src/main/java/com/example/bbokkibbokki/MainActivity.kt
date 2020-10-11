@@ -171,18 +171,20 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            .create()
 //    }
 
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-        accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-
+  
+        @SuppressLint("ClickableViewAccessibility")
+        override fun onCreate(savedInstanceState: Bundle?) {
+            super.onCreate(savedInstanceState)
+            setContentView(R.layout.activity_main)
+            sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
+            accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
 //        //결제 여쭈어보기 alertDialog
 //        adult_start.setOnClickListener{
 //            checkPayment()
 //    }
+
+
         //성인버튼눌렀을때 화면전환
         val go_adult = findViewById(R.id.adult_start) as Button
         go_adult.setOnClickListener {
@@ -210,10 +212,10 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 val pHeight = (v.parent as ViewGroup).height
 
                 //x움직일때
-//                //v.x   v.y    가상의 수직교점 절대좌표
-//                //e.x   e.y    터치한 지점에 해당하는 절대좌표
+                //v.x   v.y    가상의 수직교점 절대좌표
+                //e.x   e.y    터치한 지점에 해당하는 절대좌표
                 if (e.action == MotionEvent.ACTION_MOVE) {
-//                    v.x = v.x + e.x - v.width / 2
+                  //v.x = v.x + e.x - v.width / 2
                     v.y = v.y + e.y - v.height / 2
 
                     //뗐을 때
@@ -257,8 +259,6 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                             v.y = 560F
                         }
                         mAlertDialog.show()
-
-
 
                     } else if (v.y + v.height > pHeight) {
                         v.y = (pHeight - v.height).toFloat()
