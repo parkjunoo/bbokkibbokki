@@ -1,4 +1,3 @@
-
 package com.example.bbokkibbokki
 
 import Model.GeneralPunishment
@@ -171,6 +170,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            .setNeutralButton("취소", null)
 //            .create()
 //    }
+
   
         @SuppressLint("ClickableViewAccessibility")
         override fun onCreate(savedInstanceState: Bundle?) {
@@ -179,43 +179,44 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
             sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
             accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
 
-
 //        //결제 여쭈어보기 alertDialog
 //        adult_start.setOnClickListener{
 //            checkPayment()
 //    }
-            //성인버튼눌렀을때 화면전환
-            val go_adult = findViewById(R.id.adult_start) as Button
-            go_adult.setOnClickListener {
-                val intent = Intent(this@MainActivity, AdultActivity::class.java)
-                startActivity(intent)
-            }
-          //스틱 객체 생성 후 추가 (관리의 용의)
-            sticks.add(Stick(stick1))
-            sticks.add(Stick(stick2))
-            sticks.add(Stick(stick3))
-            sticks.add(Stick(stick4))
-            sticks.add(Stick(stick5))
-          
-            sticksTmp.add(stick1) // 애니메이션을 위한 임시 stick List
-            sticksTmp.add(stick2)
-            sticksTmp.add(stick3)
-            sticksTmp.add(stick4)
-            sticksTmp.add(stick5)
 
-            //스틱 OnTouch
-            for (i in sticks) {
-                i.ImageView.setOnTouchListener { v, e ->
-                    //부모의 절대좌표
-                    val pWidth = (v.parent as ViewGroup).width
-                    val pHeight = (v.parent as ViewGroup).height
 
-                    //x움직일때
-//                //v.x   v.y    가상의 수직교점 절대좌표
-//                //e.x   e.y    터치한 지점에 해당하는 절대좌표
-                    if (e.action == MotionEvent.ACTION_MOVE) {
-//                    v.x = v.x + e.x - v.width / 2
-                      v.y = v.y + e.y - v.height / 2
+        //성인버튼눌렀을때 화면전환
+        val go_adult = findViewById(R.id.adult_start) as Button
+        go_adult.setOnClickListener {
+            val intent = Intent(this@MainActivity, AdultActivity::class.java)
+            startActivity(intent)
+        }
+        //스틱 객체 생성 후 추가 (관리의 용의)
+        sticks.add(Stick(stick1))
+        sticks.add(Stick(stick2))
+        sticks.add(Stick(stick3))
+        sticks.add(Stick(stick4))
+        sticks.add(Stick(stick5))
+
+        sticksTmp.add(stick1) // 애니메이션을 위한 임시 stick List
+        sticksTmp.add(stick2)
+        sticksTmp.add(stick3)
+        sticksTmp.add(stick4)
+        sticksTmp.add(stick5)
+
+        //스틱 OnTouch
+        for (i in sticks) {
+            i.ImageView.setOnTouchListener { v, e ->
+                //부모의 절대좌표
+                val pWidth = (v.parent as ViewGroup).width
+                val pHeight = (v.parent as ViewGroup).height
+
+                //x움직일때
+                //v.x   v.y    가상의 수직교점 절대좌표
+                //e.x   e.y    터치한 지점에 해당하는 절대좌표
+                if (e.action == MotionEvent.ACTION_MOVE) {
+                  //v.x = v.x + e.x - v.width / 2
+                    v.y = v.y + e.y - v.height / 2
 
                     //뗐을 때
                 } else if (e.action == MotionEvent.ACTION_UP) {
@@ -235,10 +236,10 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                     if (v.y < 0) {
                         v.y = 0F
                         //점점 사라지게
-                        i.animate().alpha(0f).setDuration(2000).withEndAction {
-                            i.alpha = 1f
+                        i.ImageView.animate().alpha(0f).setDuration(2000).withEndAction {
+                            i.ImageView.alpha = 1f
                         }.start()
-                        i.setImageResource(0);
+                        i.ImageView.setImageResource(0);
 
                         //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
                         G_PunishmentList.get(randomNum).quantity--
@@ -259,20 +260,14 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         }
                         mAlertDialog.show()
 
-
-
                     } else if (v.y + v.height > pHeight) {
                         v.y = (pHeight - v.height).toFloat()
                     }
 
-                    }
-                    true
                 }
+                true
             }
-
         }
+
+    }
 }
-
-
-
-
