@@ -1,4 +1,4 @@
-package com.example.bbokkibbokki
+package Model
 
 // 성인벌칙
 class AdultPunishment (punishmentNum:Int, quantity:Int, punishmentContent:String){
