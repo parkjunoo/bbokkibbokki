@@ -2,16 +2,104 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorCoupleBack"
+    >
 
 
-    <Button
-        android:id="@+id/orriginal_start"
+    <BoggleButton
+        android:id="@+id/original_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="300dp"
         android:text="@string/original_start"
+        />
+
+    <TextView
+        android:id="@+id/action2"
+        android:layout_marginTop="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="170dp"
+        />
+
+
+    <ImageButton
+        android:id="@+id/adult_stick1"
+        android:layout_width="90dp"
+        android:layout_height="450dp"
+        android:background="@drawable/heartstick1"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="@id/adult_Box"
+        app:layout_constraintBottom_toBottomOf="@id/adult_Box"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
+    <ImageButton
+        android:id="@+id/adult_stick2"
+        android:layout_width="90dp"
+        android:layout_height="450dp"
+        android:background="@drawable/heartstick2"
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="65dp"
+        app:layout_constraintLeft_toLeftOf="@id/adult_stick1"
+        app:layout_constraintBottom_toBottomOf="@id/adult_Box"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/adult_stick3"
+        android:layout_width="90dp"
+        android:layout_height="450dp"
+        android:layout_marginLeft="70dp"
+        android:background="@drawable/heartstick3"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="@id/adult_stick2"
+        app:layout_constraintBottom_toBottomOf="@id/adult_Box"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/adult_stick4"
+        android:layout_width="90dp"
+        android:layout_height="450dp"
+        android:layout_marginLeft="70dp"
+        android:background="@drawable/heartstick1"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="@id/adult_stick3"
+        app:layout_constraintBottom_toBottomOf="@id/adult_Box"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageButton
+        android:id="@+id/adult_stick5"
+        android:layout_width="90dp"
+        android:layout_height="450dp"
+        android:layout_marginLeft="70dp"
+        android:background="@drawable/heartstick2"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintLeft_toLeftOf="@id/adult_stick4"
+        app:layout_constraintBottom_toBottomOf="@id/adult_Box"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/adult_Box"
+        android:layout_width="370dp"
+        android:layout_height="360dp"
+        android:background="@drawable/couplebox"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-/>
+        android:layout_marginTop="300dp"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

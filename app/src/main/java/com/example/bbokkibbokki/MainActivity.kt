@@ -12,7 +12,6 @@ import android.media.MediaPlayer
 import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import android.os.Vibrator
 import android.provider.MediaStore
 import android.util.Log
@@ -23,9 +22,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.getSystemService
 import androidx.core.view.LayoutInflaterFactory
@@ -176,7 +173,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
 
 
-    @SuppressLint("ClickableViewAccessibility")
+    @SuppressLint("ClickableViewAccessibility", "WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -189,12 +186,25 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 //            checkPayment()
 //    }
         //성인버튼눌렀을때 화면전환
+//        val go_adult = findViewById(R.id.adult_start) as Button
+//            go_adult.setOnClickListener{
+//                val intent = Intent(this@MainActivity, AdultActivity::class.java)
+//                startActivity(intent)
+//            }
+        //토글 on 성인화면으로
         val go_adult = findViewById(R.id.adult_start) as Button
-            go_adult.setOnClickListener{
-                val intent = Intent(this@MainActivity, AdultActivity::class.java)
-                startActivity(intent)
-            }
+        val swich: Switch = findViewById(R.id.adult_start)
+        swich.setOnCheckedChangeListener{_, onSwich ->
+            if (onSwich) {
+                go_adult.setOnClickListener{
+                    val intent = Intent(this@MainActivity, AdultActivity::class.java)
+                    startActivity(intent)
+                }
 
+            }else{
+
+            }
+        }
 
         sticks.add(stick1)
         sticks.add(stick2)
