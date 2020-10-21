@@ -20,6 +20,8 @@
         </activity>
         <activity android:name="com.example.bbokkibbokki.MainActivity" />
         <activity android:name="com.example.bbokkibbokki.AdultActivity" />
+        <activity android:name="com.example.bbokkibbokki.MainActivity2" />
+
 
     </application>
 

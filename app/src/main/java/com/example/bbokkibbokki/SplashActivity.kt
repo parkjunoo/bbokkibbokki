@@ -15,7 +15,7 @@ class SplashActivity : AppCompatActivity() {
 
         //main화면 불러오기
         Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, MainActivity2::class.java))
             finish()
         }, SPLASH_TIME_OUT)
     }

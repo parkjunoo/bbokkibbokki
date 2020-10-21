@@ -1,4 +1,4 @@
-package com.example.bbokkibbokki
+package Model
 
 // 일반 벌칙
 class GeneralPunishment (punishmentNum:Int, quantity:Int, punishmentContent:String) {
@@ -10,5 +10,6 @@ class GeneralPunishment (punishmentNum:Int, quantity:Int, punishmentContent:Stri
         this.punishmentNum = punishmentNum
         this.quantity = quantity
         this.punishmentContent = punishmentContent
+
     }
 }
