@@ -1,33 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <Switch
+            android:id="@+id/adult_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="320dp"
+            android:track="@drawable/switch_track_selector"
+            android:thumb="@drawable/switch_thumb"
+            />
+
+    </androidx.appcompat.widget.Toolbar>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-
-        <Button
-            android:id="@+id/adult_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="300dp"
-            android:text="@string/adult_start"
-            />
-
-
-        <TextView
-            android:id="@+id/action"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!"
-            android:layout_marginLeft="170dp"
-            />
+        android:layout_height="match_parent">
 
 
         <ImageButton
@@ -35,8 +32,8 @@
             android:layout_width="80dp"
             android:layout_height="500dp"
             android:layout_marginLeft="35dp"
+            android:layout_marginTop="170dp"
             android:background="@drawable/stick"
-            android:layout_marginTop="100dp"
 
             />
 
@@ -44,41 +41,37 @@
             android:id="@+id/stick2"
             android:layout_width="80dp"
             android:layout_height="500dp"
-            android:layout_marginLeft="62dp"
-            android:background="@drawable/stick"
-            android:layout_marginTop="100dp"
             android:layout_alignLeft="@id/stick1"
-            />
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/stick" />
 
         <ImageButton
             android:id="@+id/stick3"
             android:layout_width="80dp"
             android:layout_height="500dp"
-            android:layout_marginLeft="62dp"
-            android:background="@drawable/stick"
-            android:layout_marginTop="100dp"
             android:layout_alignLeft="@id/stick2"
-            />
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/stick" />
 
         <ImageButton
             android:id="@+id/stick4"
             android:layout_width="80dp"
             android:layout_height="500dp"
-            android:layout_marginLeft="62dp"
-            android:background="@drawable/stick"
-            android:layout_marginTop="100dp"
             android:layout_alignLeft="@id/stick3"
-            />
+            android:layout_marginLeft="59dp"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/stick" />
 
         <ImageButton
             android:id="@+id/stick5"
             android:layout_width="80dp"
             android:layout_height="500dp"
-            android:layout_marginLeft="62dp"
-            android:background="@drawable/stick"
-            android:layout_marginTop="100dp"
             android:layout_alignLeft="@id/stick4"
-            />
+            android:layout_marginLeft="62dp"
+            android:layout_marginTop="170dp"
+            android:background="@drawable/stick" />
 
         <ImageView
             android:id="@+id/Box"
@@ -87,8 +80,44 @@
             android:layout_marginTop="300dp"
             android:background="@drawable/boxcut" />
 
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/Box"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="-6dp"
+            android:layout_marginBottom="-180dp"
+            android:gravity="center"
+            android:text="남은 벌칙"
+            android:textSize="20sp"
+            android:visibility="visible"
+            android:textColor="#c2bfbf"
 
+            />
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/Box"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="-6dp"
+            android:layout_marginBottom="-250dp"
+            android:gravity="center"
+            android:text="count"
+            android:textSize="60sp"
+            android:visibility="visible"
+            android:textColor="#dbdbdb"
+            />
+    </RelativeLayout>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

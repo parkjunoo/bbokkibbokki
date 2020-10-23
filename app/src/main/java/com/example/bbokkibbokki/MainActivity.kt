@@ -15,14 +15,14 @@ import android.os.Bundle
 import android.widget.ImageView
 import android.os.Vibrator
 import android.util.Log
-
 import android.view.MotionEvent
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.Button
+import android.widget.CompoundButton
+import android.widget.TextView
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -33,6 +33,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     private var sticks = ArrayList<Stick>()
     private var sticksTmp = ArrayList<ImageView>()
     private var randomNum: Int = 0
+    private var purnishmentSum: Int = 0
     //shake 변수
     private var random = Random()
     private var lastTime: Long = 0
@@ -49,16 +50,21 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     private var DATA_Z = SensorManager.DATA_Z
     private var sensorManager: SensorManager? = null
     private var accelerormeterSensor: Sensor? = null
-    private var G_PunishmentList = ArrayList<GeneralPunishment>()
+    private var G_PunishmentList: ArrayList<GeneralPunishment>? = ArrayList<GeneralPunishment>()
+
+    // 토글 버튼
+    private var mDrawerToggle : ActionBarDrawerToggle? = null
 
 
     init {
+
         // 일반벌칙 정의
-        G_PunishmentList.add(GeneralPunishment(1, 2, "벌칙1"))
-        G_PunishmentList.add(GeneralPunishment(2, 2, "벌칙2"))
-        G_PunishmentList.add(GeneralPunishment(3, 2, "벌칙3"))
-        G_PunishmentList.add(GeneralPunishment(4, 2, "벌칙4"))
-        G_PunishmentList.add(GeneralPunishment(5, 2, "벌칙5"))
+        G_PunishmentList!!.add(GeneralPunishment(1, 1, "벌주 2배로 마시기!!"))
+        G_PunishmentList!!.add(GeneralPunishment(2, 1, "노래부르기 (1절매너)"))
+        G_PunishmentList!!.add(GeneralPunishment(3, 1, "소주 한 잔 숟가락으로 먹기"))
+        G_PunishmentList!!.add(GeneralPunishment(4, 1, "자리에서 절하고 마시기"))
+        G_PunishmentList!!.add(GeneralPunishment(5, 1, "흑기사,흑장미 무료이용찬스!"))
+
 
     }
 
@@ -92,6 +98,7 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
     }
 
     override fun onSensorChanged(event: SensorEvent) {
+
         if (event.sensor.getType() === Sensor.TYPE_ACCELEROMETER) {
             val currentTime = System.currentTimeMillis()
             val gabOfTime = (currentTime - lastTime)
@@ -120,12 +127,11 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
 
                     // 랜덤 변수 생성
-                    randomNum = rand(0, G_PunishmentList.size)
-                    if (G_PunishmentList.get(randomNum).quantity == 0) {
+                    randomNum = rand(0, G_PunishmentList!!.size)
+                    if (G_PunishmentList!!.get(randomNum).quantity == 0) {
 
                         //추후 벌칙 뽑은후 횟수 조정
                     }
-
 
                 }
                 lastX = event.values[DATA_X]
@@ -178,6 +184,10 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
             setContentView(R.layout.activity_main)
             sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
             accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            for(j in G_PunishmentList!!){
+                purnishmentSum = purnishmentSum + j.quantity
+            }
+            count.setText("${purnishmentSum}")
 
 //        //결제 여쭈어보기 alertDialog
 //        adult_start.setOnClickListener{
@@ -186,11 +196,20 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
 
 
         //성인버튼눌렀을때 화면전환
-        val go_adult = findViewById(R.id.adult_start) as Button
-        go_adult.setOnClickListener {
-            val intent = Intent(this@MainActivity, AdultActivity::class.java)
-            startActivity(intent)
-        }
+        adult_start.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView: CompoundButton, isChecked: Boolean) {
+                if (isChecked) {
+                    //체크된 상태 취소 시 코드
+
+                } else {
+                    //체크된 상태로 만들 시 코드
+                    val intent = Intent(this@MainActivity, MainActivity::class.java)
+                    startActivity(intent)
+
+                }
+            }
+        })
+
         //스틱 객체 생성 후 추가 (관리의 용의)
         sticks.add(Stick(stick1))
         sticks.add(Stick(stick2))
@@ -204,8 +223,11 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
         sticksTmp.add(stick4)
         sticksTmp.add(stick5)
 
+
+
         //스틱 OnTouch
         for (i in sticks) {
+
             i.ImageView.setOnTouchListener { v, e ->
                 //부모의 절대좌표
                 val pWidth = (v.parent as ViewGroup).width
@@ -215,11 +237,13 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                 //v.x   v.y    가상의 수직교점 절대좌표
                 //e.x   e.y    터치한 지점에 해당하는 절대좌표
                 if (e.action == MotionEvent.ACTION_MOVE) {
-                  //v.x = v.x + e.x - v.width / 2
-                    v.y = v.y + e.y - v.height / 2
-
+                    //v.x = v.x + e.x - v.width / 2
+                    if (v.y >= v.y + e.y - v.height / 2) {
+                        v.y = v.y + e.y - v.height / 2
+                    }
                     //뗐을 때
                 } else if (e.action == MotionEvent.ACTION_UP) {
+
                     Log.d("bsjbsj", "detached...")
                     Log.d(
                         "bsjbsj",
@@ -238,31 +262,44 @@ class MainActivity:AppCompatActivity(), SensorEventListener {
                         //점점 사라지게
                         i.ImageView.animate().alpha(0f).setDuration(2000).withEndAction {
                             i.ImageView.alpha = 1f
+                            v.y = sticksTmp.get(0).y
                         }.start()
                         i.ImageView.setImageResource(0);
 
+
                         //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
-                        G_PunishmentList.get(randomNum).quantity--
-                        if(G_PunishmentList.get(randomNum).quantity == 0){
-                            G_PunishmentList.removeAt(randomNum)
+                        G_PunishmentList!!.get(randomNum).quantity--
+                        if(G_PunishmentList?.get(randomNum)!!.quantity == 0){
+                            if(G_PunishmentList?.size != 0){
+                                
+                                G_PunishmentList?.removeAt(randomNum)
+                                count.setText("${--purnishmentSum}")
+                            }else{
+//                                val nullDialog = AlertDialog.Builder(this@MainActivity)
+//                                nullDialog.setTitle("벌칙이 모두 사라졌어요!!")
+//                                nullDialog.setPositiveButton("닫기"){dialog, id ->}
+//                                nullDialog.show()
+                            }
                             //추후 벌칙 뽑은후 횟수 조정
                         }
-                        randomNum = rand(0,G_PunishmentList.size)
+                        randomNum = rand(0,G_PunishmentList!!.size)
 
                         //벌칙창
                         val mAlertDialog = AlertDialog.Builder(this@MainActivity)
                         mAlertDialog.setIcon(R.drawable.soju)
                         mAlertDialog.setTitle("*^ㅅ^*")
-                        mAlertDialog.setMessage(G_PunishmentList.get(randomNum).punishmentContent)
+                        mAlertDialog.setMessage(G_PunishmentList!!.get(randomNum).punishmentContent)
                         mAlertDialog.setPositiveButton("닫기"){dialog, id ->
                             //stick 제자리
-                            v.y = 560F
                         }
                         mAlertDialog.show()
+                        v.y = sticksTmp.get(0).y
 
                     } else if (v.y + v.height > pHeight) {
                         v.y = (pHeight - v.height).toFloat()
                     }
+
+                    v.y = sticksTmp.get(0).y
 
                 }
                 true
