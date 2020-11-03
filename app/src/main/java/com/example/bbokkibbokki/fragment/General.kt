@@ -1,7 +1,7 @@
-package Fragment
+package com.example.bbokkibbokki.fragment
 
-import Model.GeneralPunishment
-import Model.Stick
+import com.example.bbokkibbokki.model.GeneralPunishment
+import com.example.bbokkibbokki.model.Stick
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
@@ -10,7 +10,6 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
-import android.media.SoundPool
 import android.os.Bundle
 import android.os.Vibrator
 import android.util.Log
@@ -20,13 +19,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.bbokkibbokki.R
-import kotlinx.android.synthetic.main.fragment_couple.view.*
 import kotlinx.android.synthetic.main.fragment_general.*
+import kotlinx.android.synthetic.main.fragment_general.view.*
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class General : Fragment(), SensorEventListener{
 
@@ -35,7 +34,6 @@ class General : Fragment(), SensorEventListener{
     private var sticksTmp = ArrayList<ImageView>()
     private var randomNum: Int = 0
     private var purnishmentSum: Int = 0
-
     //shake 변수
     private var random = Random()
     private var lastTime: Long = 0
@@ -67,12 +65,17 @@ class General : Fragment(), SensorEventListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         sensorManager = activity!!.getSystemService(SENSOR_SERVICE) as SensorManager
         accelerormeterSensor = sensorManager?.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        for(j in G_PunishmentList!!){
+        sensorManager!!.registerListener(
+            this,
+            accelerormeterSensor,
+            SensorManager.SENSOR_DELAY_NORMAL
+        )
+        for (j in G_PunishmentList!!) {
             purnishmentSum = purnishmentSum + j.quantity
         }
-
         super.onCreate(savedInstanceState)
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
@@ -95,7 +98,7 @@ class General : Fragment(), SensorEventListener{
         sticksTmp.add(view.stick5)
 
 
-
+        box = view.Box
         //스틱 OnTouch
         for (i in sticks) {
             i.ImageView.setOnTouchListener { v, e ->
@@ -134,16 +137,22 @@ class General : Fragment(), SensorEventListener{
                             i.ImageView.alpha = 1f
                             v.y = sticksTmp.get(0).y
                         }.start()
-                        i.ImageView.setImageResource(0);
-
 
                         //벌칙 줄이기 (총 2번씩)  -> 0일때 다시 초기화
                         G_PunishmentList!!.get(randomNum).quantity--
                         if (G_PunishmentList?.get(randomNum)!!.quantity == 0) {
                             if (G_PunishmentList?.size != 0) {
-
                                 G_PunishmentList?.removeAt(randomNum)
                                 count.setText("${--purnishmentSum}")
+
+                                if(G_PunishmentList!!.size < 5){
+                                    i.ImageView.visibility = if (view.visibility == View.VISIBLE){
+                                        View.INVISIBLE
+                                    } else{
+                                        View.VISIBLE
+                                    }
+
+                                }
                             } else {
 //                                val nullDialog = AlertDialog.Builder(this@MainActivity)
 //                                nullDialog.setTitle("벌칙이 모두 사라졌어요!!")
@@ -208,7 +217,6 @@ class General : Fragment(), SensorEventListener{
                 speed = Math.abs(x + y + z - lastX - lastY - lastZ) / gabOfTime * 10000
                 //흔들때
                 if (speed > SHAKE_THRESHOLD) {
-                    println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
                     //흔들기 애니메이션
                     animateTotal()
                     //흔들시 효과음
@@ -235,5 +243,10 @@ class General : Fragment(), SensorEventListener{
     }
 
     override fun onAccuracyChanged(p0: Sensor?, p1: Int) {
+    }
+    override fun onStop() {
+        super.onStop()
+        if (sensorManager != null)
+            sensorManager?.unregisterListener(this)
     }
 }
