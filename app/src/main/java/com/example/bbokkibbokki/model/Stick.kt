@@ -1,4 +1,4 @@
-package Model
+package com.example.bbokkibbokki.model
 
 import android.widget.ImageView
 

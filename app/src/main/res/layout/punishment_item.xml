@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/punishment_list"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="#ff0000"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#00ff00"
+        >
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="190dp"
+            android:layout_height="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp"
+            android:background="#ff0000">
+        </TextView>
+
+        <TextView
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_width="190dp"
+            android:layout_height="50dp"
+            android:background="#ff0000">
+        </TextView>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/punishment_list_modify"
+        android:text="수정"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        />
+
+    <Button
+        android:id="@+id/punishment_list_remove"
+        android:text="삭제"
+        android:layout_gravity="center_vertical"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="5dp"
+         />
+</LinearLayout>
+
+
+
