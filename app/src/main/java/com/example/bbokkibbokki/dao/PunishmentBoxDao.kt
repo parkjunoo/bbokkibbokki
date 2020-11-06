@@ -3,16 +3,16 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.example.bbokkibbokki.model.Punishment
+import com.example.bbokkibbokki.model.PunishmentBox
 
 @Dao
 interface PunishmentBoxDao {
-    @Query("SELECT * FROM Punishment")
-    fun getAll(): List<Punishment>
+    @Query("SELECT * FROM punishment_box")
+    fun getAll(): List<PunishmentBox>
 
     @Insert(onConflict = REPLACE)
-    fun insert(punishment: Punishment)
+    fun insert(punishmentBox: PunishmentBox)
 
-    @Query("DELETE from Punishment")
+    @Query("DELETE from punishment_box")
     fun deleteAll()
 }
