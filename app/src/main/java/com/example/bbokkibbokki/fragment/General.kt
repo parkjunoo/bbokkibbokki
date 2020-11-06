@@ -76,7 +76,6 @@ class General : Fragment(), SensorEventListener{
         super.onCreate(savedInstanceState)
     }
 
-
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(
         inflater: LayoutInflater,
