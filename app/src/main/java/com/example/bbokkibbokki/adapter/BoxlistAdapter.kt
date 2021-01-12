@@ -9,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bbokkibbokki.R
 import com.example.bbokkibbokki.model.PunishmentBox
 
-class BoxlistAdapter(private val context : Context) : RecyclerView.Adapter<BoxlistAdapter.Holder>() {
+class BoxlistAdapter(private var mData: MutableList<PunishmentBox>) : RecyclerView.Adapter<BoxlistAdapter.Holder>() {
 
-    var mData = mutableListOf<PunishmentBox>();
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BoxlistAdapter.Holder {
-        val view = LayoutInflater.from(context).inflate(R.layout.fragment_punishment_list, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.punishment_item, parent, false)
         return Holder(view)
     }
 
@@ -25,7 +25,7 @@ class BoxlistAdapter(private val context : Context) : RecyclerView.Adapter<Boxli
     }
 
 
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val boxName : TextView = itemView.findViewById(R.id.box_name)
         val boxType : TextView = itemView.findViewById(R.id.box_name)
         fun onBind(punishmentBox : PunishmentBox){
