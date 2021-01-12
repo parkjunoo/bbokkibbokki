@@ -9,10 +9,8 @@ import com.example.bbokkibbokki.model.PunishmentBox
 interface PunishmentBoxDao {
     @Query("SELECT * FROM punishment_box")
     fun getAll(): List<PunishmentBox>
-
     @Insert(onConflict = REPLACE)
     fun insert(punishmentBox: PunishmentBox)
-
     @Query("DELETE from punishment_box")
     fun deleteAll()
 }

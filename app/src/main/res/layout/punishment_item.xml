@@ -14,6 +14,7 @@
         android:background="#00ff00"
         >
         <TextView
+            android:id="@+id/box_type"
             android:layout_gravity="center_horizontal"
             android:layout_width="190dp"
             android:layout_height="10dp"
@@ -24,6 +25,7 @@
         </TextView>
 
         <TextView
+            android:id="@+id/box_name"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_width="190dp"
