@@ -1,6 +1,7 @@
 # :beers: 뽀끼뽀끼 (bbokki-bbokki)
 <br>
 
+
 ## :bulb:Project background and purpose
 #### "술자리를 좀 더 재미있게 즐길 수 없을까:question:"
 #### 라는 한마디에서 나온 술 게임 애플리케이션이다.
@@ -58,6 +59,4 @@
 
 
 ## :triangular_flag_on_post:Results screen 
-
-
-![ezgif com-gif-maker](https://user-images.githubusercontent.com/56735744/105874564-10be1c00-6040-11eb-9dbd-7ed50bc2dc6e.gif)
+<img width="225" alt="dd" src="https://user-images.githubusercontent.com/56735744/105883899-b70f1f00-604a-11eb-8e95-beff2bb5d966.png">  ![ezgif com-gif-maker](https://user-images.githubusercontent.com/56735744/105874564-10be1c00-6040-11eb-9dbd-7ed50bc2dc6e.gif)
